@@ -10,6 +10,13 @@ const Style = createGlobalStyle`
     html{
         font-size: 62.5%;
         font-family: Helvetica neue;
+        font-weight: 400;
+        @media screen and (max-width: 800px) {
+          font-size: 50%;
+        }
+        @media screen and (min-width: 1350px){
+          font-size: 70%;
+        }
     }
     :root{
         --ColorPrimary: #ef230c;

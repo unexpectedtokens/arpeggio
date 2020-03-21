@@ -5,6 +5,9 @@ export const Container = styled.main`
   height: 100%;
   display: grid;
   grid-template-columns: minmax(730px, 1fr) 1fr;
+  @media screen and (max-width: 800px) {
+    display: block;
+  }
 `
 
 const FadeInRight = keyframes`
@@ -21,8 +24,8 @@ filter: blur(50%);
 `
 
 export const Fader = styled.div`
-  animation: ${FadeInRight} 1s ${props => (props.delay ? props.delay : "0.5s")}
-    ease-out;
+  animation: ${FadeInRight} 0.8s
+    ${props => (props.delay ? props.delay : "0.5s")} ease-out;
   animation-fill-mode: both;
 `
 
@@ -31,7 +34,7 @@ export const DarkArea = styled.div`
   min-height: 100vh;
   justify-content: flex-end;
   background: rgba(35, 38, 43, 0.95);
-  padding: 7rem 4rem 4rem;
+  padding: 6rem 6rem 2rem;
   box-shadow: 1.5rem 0 5rem rgba(0, 0, 0, 0.5);
   .logo {
     color: #fff;
@@ -62,6 +65,9 @@ export const DarkArea = styled.div`
       }
     }
   }
+  @media screen and (max-width: 800px) {
+    display: block;
+  }
 `
 
 export const Background = styled(BackgroundIMG)`
@@ -71,8 +77,10 @@ export const Background = styled(BackgroundIMG)`
 `
 export const ItemGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 15rem);
+  grid-template-columns: repeat(auto-fit, 15rem);
   grid-gap: 4.5rem;
+  margin-bottom: 11.5rem;
+  align-items: end;
 `
 
 const active = css`
@@ -93,12 +101,43 @@ export const Item = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
+  color: var(--ColorGray);
   h4 {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     color: #fff;
     font-weight: 400;
     text-align: center;
   }
+  svg {
+    margin-bottom: 2rem;
+  }
   ${props => (props.active ? active : null)}
+`
+export const LogoGrid = styled.div`
+  display: flex;
+  margin-bottom: 1rem;
+  svg {
+    margin-right: 2rem;
+    fill: var(--ColorGray);
+  }
+`
+export const Footer = styled.div`
+  p {
+    font-size: 1.2rem !important;
+    color: var(--ColorGray);
+    font-weight: 300;
+
+    :not(:last-of-type) {
+      margin-bottom: 0.6rem;
+    }
+    svg {
+      fill: var(--ColorPrimaryFaded);
+    }
+    a {
+      color: var(--ColorPrimaryFaded);
+      text-decoration: none;
+      /* text-shadow: 0 0 1rem var(--ColorPrimaryFaded); */
+    }
+  }
 `

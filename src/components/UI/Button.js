@@ -15,7 +15,7 @@ const ButtonComp = styled(Link)`
   font-weight: 300;
   box-shadow: 0 0 5rem #932822;
   transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-  margin: 8rem 0 11.5rem;
+  margin: 8rem 0;
   display: inline-block;
   :hover {
     background-position: 35%;
