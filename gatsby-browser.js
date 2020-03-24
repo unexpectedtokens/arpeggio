@@ -5,6 +5,7 @@ const Style = createGlobalStyle`
         padding: 0;
         margin: 0;
         box-sizing: border-box;
+        outline: none;
     }
 
     html{
@@ -17,6 +18,9 @@ const Style = createGlobalStyle`
         @media screen and (min-width: 1350px){
           font-size: 70%;
         }
+    }
+    body{
+      background: #555;
     }
     :root{
         --ColorPrimary: #ef230c;
@@ -43,3 +47,4 @@ exports.wrapPageElement = ({ element }) => {
     </>
   )
 }
+exports.shouldUpdateScroll = () => false
