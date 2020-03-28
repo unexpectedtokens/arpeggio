@@ -1,48 +1,29 @@
 import styled, { keyframes, css } from "styled-components"
 const FadeIn = keyframes`
 from{
-  opacity: 0;
-}to{
-  opacity: 1;
+
+opacity: 0;}to{
+opacity: 1;
 }
 
 
 `
 export const Container = styled.div`
-  background: linear-gradient(
-    to top,
-    var(--ColorPrimary),
-    var(--ColorPrimaryFaded)
-  );
   min-height: 100vh;
-  padding: 8rem 0;
-  transition: padding 0.3s;
-  @media screen and (max-width: 1250px) {
-    padding: 0;
-  }
+  /* padding: 8rem 0; */
   color: #fff;
   a {
     text-decoration: none;
   }
 
-  animation: ${FadeIn} 0.3s;
-`
-const AuthContent = css`
-  transform: translateY(0);
-  opacity: 1;
+  animation: ${FadeIn} 1.5s;
 `
 
 export const Content = styled.section`
   margin: 0 auto;
   transition: opacity 0.3s, transform 0.3s;
-  opacity: 0;
-  transform: translateY(2rem);
-  ${props =>
-    props.state === "entered" || props.state === "entering"
-      ? AuthContent
-      : null}
+
   min-height: 100vh;
-  max-width: 1250px;
   background: var(--ColorDark);
   display: flex;
   box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.4);
@@ -53,7 +34,7 @@ export const Content = styled.section`
 `
 export const Main = styled.main`
   background: var(--ColorDarkLight);
-  flex-basis: 80%;
+  flex-basis: 82.5%;
   padding: 4rem;
   box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.4);
   position: relative;
@@ -101,17 +82,15 @@ export const Stagger = styled.div`
     }
   }}
   animation-fill-mode: both;
-  background: var(--ColorDark);
-  padding: 3rem;
   margin-bottom: 6rem;
 `
 export const RouteContainer = styled.div`
   position: absolute;
-  top: 2rem;
-  left: 2rem;
-  bottom: 2rem;
-  right: 2rem;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
+  padding: 2rem;
   flex-direction: column;
   ::-webkit-scrollbar {
     display: none;

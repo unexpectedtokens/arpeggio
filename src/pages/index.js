@@ -3,42 +3,29 @@ import {
   ItemGrid,
   Container,
   DarkArea,
-  Background,
   Fader,
   Item,
   LogoGrid,
   Footer,
 } from "../components/Landing"
 import {
-  FaGuitar,
   FaGithub,
   // FaTwitter,
   FaHeart,
   // FaFacebookF,
 } from "react-icons/fa"
 import Button from "../components/UI/Button"
-import { useStaticQuery, graphql } from "gatsby"
-
-const query = graphql`
-  query {
-    file(name: { eq: "concert" }) {
-      childImageSharp {
-        fluid(quality: 90) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
-    }
-  }
-`
+import Background from "../components/UI/Background"
+import { MdSearch } from "react-icons/md"
 
 const IndexPage = () => {
-  const data = useStaticQuery(query)
-  const stack = [
-    // "linear-gradient(rgba(222,145,26,0.5),rgba(222,145,26,0.5))",
-    data.file.childImageSharp.fluid,
-  ]
+  // const data = useStaticQuery(query)
+  // const stack = [
+  //   // "linear-gradient(rgba(222,145,26,0.5),rgba(222,145,26,0.5))",
+  //   data.file.childImageSharp.fluid,
+  // ]
   return (
-    <Background fluid={stack}>
+    <Background>
       <Container>
         <DarkArea>
           <div></div>
@@ -59,7 +46,7 @@ const IndexPage = () => {
               </p>
             </Fader>
             <Fader delay="1.5s">
-              <Button text="Get Started" to="/app" />
+              <Button text="Get Started" to="/auth" />
             </Fader>
             <Fader delay="1.8s">
               <ItemGrid>
@@ -74,7 +61,7 @@ const IndexPage = () => {
                   },
                 ].map(item => (
                   <Item active={item.active} key={item.text}>
-                    <FaGuitar size="4em" />
+                    <MdSearch />
                     <h4>{item.text}</h4>
                   </Item>
                 ))}

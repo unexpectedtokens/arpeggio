@@ -1,7 +1,10 @@
 import { createStore, combineReducers } from "redux"
-import reducer from "./reducer"
-import { reducer as formReducer } from "redux-form"
+import authReducer from "./reducers/auth"
+import listingReducer from "./reducers/listings"
 
-const rootReducer = combineReducers({ general: reducer, form: formReducer })
+const rootReducer = combineReducers({
+  auth: authReducer,
+  listing: listingReducer,
+})
 
-export default createStore(rootReducer)
+export const store = createStore(rootReducer)

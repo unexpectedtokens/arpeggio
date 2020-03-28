@@ -1,19 +1,15 @@
 import React from "react"
 import { Stagger, RouteContainer } from "../../UI/appspecific/Containers"
+import Welcome from "../../UI/appspecific/Home/Welcome"
+import CTAs from "../../UI/appspecific/Home/CTAs"
 const Messages = props => {
   return (
     <RouteContainer>
       <Stagger delay=".1s" state={props.state}>
-        Home
+        <Welcome username="Daniel" />
       </Stagger>
       <Stagger delay=".3s" state={props.state}>
-        Home
-      </Stagger>
-      <Stagger delay=".5s" state={props.state}>
-        Home
-      </Stagger>
-      <Stagger delay=".7s" state={props.state}>
-        Home
+        <CTAs />
       </Stagger>
     </RouteContainer>
   )

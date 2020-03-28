@@ -12,13 +12,13 @@ export const Field = styled.div`
 
 export const Input = styled.input`
   border: none;
-  background: var(--ColorDark);
+  background: var(--ColorDarkLight);
   padding: 2rem 0;
   text-indent: 2rem;
   font-size: 1.8rem;
-  color: #fff;
+  color: #fffcc8;
   ::placeholder {
-    color: var(--ColorGray);
+    color: #fffcc8;
   }
 `
 

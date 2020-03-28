@@ -50,7 +50,7 @@ export default props => {
             props.setMode()
           }}
         >
-          Don't have an account yet? Register instead.
+          Don't have an account yet? <span>Register instead.</span>
         </button>
       </ButtonBar>
     </form>

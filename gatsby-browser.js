@@ -1,5 +1,7 @@
 const { createGlobalStyle } = require("styled-components")
+const { store } = require("./src/store/index")
 const React = require("react")
+const { Provider } = require("react-redux")
 const Style = createGlobalStyle`
     *{
         padding: 0;
@@ -23,7 +25,7 @@ const Style = createGlobalStyle`
       background: #555;
     }
     :root{
-        --ColorPrimary: #ef230c;
+        --ColorPrimary: #E63B32;
         --ColorPrimaryFaded: #Fd655D;
         --ColorDarkLight: #3d4147;
         --ColorDark: #23262B;
@@ -48,3 +50,6 @@ exports.wrapPageElement = ({ element }) => {
   )
 }
 exports.shouldUpdateScroll = () => false
+exports.wrapRootElement = ({ element }) => {
+  return <Provider store={store}>{element}</Provider>
+}

@@ -84,17 +84,16 @@ export const ItemGrid = styled.div`
 `
 
 const active = css`
-  background: linear-gradient(to bottom, #3d4147, #4a302d);
+  background: #3d4147;
   background-size: 120%;
   box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.4);
   opacity: 1;
   h4 {
-    color: var(--ColorPrimaryFaded);
+    color: var(--ColorGray);
   }
 `
 
 export const Item = styled.div`
-  background: #ccc111;
   padding: 2rem;
   opacity: 0.35;
   background: #3d4147;
@@ -105,12 +104,13 @@ export const Item = styled.div`
   color: var(--ColorGray);
   h4 {
     font-size: 1.6rem;
-    color: #fff;
     font-weight: 400;
     text-align: center;
   }
   svg {
     margin-bottom: 2rem;
+    fill: var(--ColorPrimaryFaded);
+    font-size: 5rem;
   }
   ${props => (props.active ? active : null)}
 `

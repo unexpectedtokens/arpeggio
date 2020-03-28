@@ -7,7 +7,10 @@
 // You can delete this file if you're not using it
 const { createGlobalStyle } = require("styled-components")
 const React = require("react")
+const { store } = require("./src/store/index")
+const { Provider } = require("react-redux")
 const Style = createGlobalStyle`
+
     *{
         padding: 0;
         margin: 0;
@@ -27,7 +30,7 @@ const Style = createGlobalStyle`
         }
     }
     :root{
-        --ColorPrimary: #ef230c;
+        --ColorPrimary: #E63B32;
         --ColorPrimaryFaded: #Fd655D;
         --ColorDarkLight: #3d4147;
         --ColorDark: #23262B;
@@ -50,4 +53,7 @@ exports.wrapPageElement = ({ element }) => {
       {element}
     </>
   )
+}
+exports.wrapRootElement = ({ element }) => {
+  return <Provider store={store}>{element}</Provider>
 }

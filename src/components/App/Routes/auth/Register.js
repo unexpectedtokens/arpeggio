@@ -62,7 +62,7 @@ export default props => {
             props.setMode()
           }}
         >
-          Already have an account? Log in instead.
+          Already have an account? <span>Log in instead.</span>
         </button>
       </ButtonBar>
     </form>

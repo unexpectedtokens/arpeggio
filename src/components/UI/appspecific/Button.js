@@ -25,7 +25,7 @@ const ButtonComp = styled.button`
 
 const Button = props => {
   return (
-    <ButtonComp to={props.to}>
+    <ButtonComp to={props.to} onClick={props.clicked}>
       {props.loading ? <img alt="" src={spinner} /> : props.text}
     </ButtonComp>
   )
@@ -35,7 +35,7 @@ export const ButtonBar = styled.div`
   display: flex;
   justify-content: ${props => (props.justify ? props.justify : "flex-start")};
   align-items: center;
-  margin: 2rem 0;
+  margin: 6rem 0 0;
   z-index: 5;
 `
 export default Button
