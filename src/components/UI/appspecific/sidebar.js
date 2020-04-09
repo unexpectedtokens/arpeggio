@@ -1,8 +1,8 @@
 import styled from "styled-components"
 import { Link } from "@reach/router"
 export const SideBar = styled.aside`
-  flex-basis: 17.5%;
-  background: var(--ColorDark);
+  flex-basis: 15%;
+  /* background: var(--ColorDark); */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,7 +63,7 @@ export const SideBarLink = styled(Link)`
     transform: scaleY(${props => (props.active ? 1 : 0)});
     top: 0;
     left: 0;
-    transition: transform 0.2s, width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s;
+    transition: transform 0.3s, width 0.5s cubic-bezier(1, 0, 0, 1) 0.3s;
     box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.4);
     background: linear-gradient(
       to right,

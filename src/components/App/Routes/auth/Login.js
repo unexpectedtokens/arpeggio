@@ -9,13 +9,11 @@ export default props => {
   const submit = e => {
     e.preventDefault()
     setLoading(true)
-    setTimeout(() => {
-      if (email && password) {
-        props.authenticate()
-      } else {
-        setLoading(false)
-      }
-    }, 500)
+    if (email && password) {
+      props.login(email, password)
+    } else {
+      setLoading(false)
+    }
   }
   return (
     <form onSubmit={submit}>
@@ -28,6 +26,7 @@ export default props => {
           placeholder="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          required
         />
       </Field>
       <Field>
@@ -39,6 +38,7 @@ export default props => {
           placeholder="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
+          required
         />
       </Field>
       <ButtonBar>

@@ -12,13 +12,19 @@ export const Field = styled.div`
 
 export const Input = styled.input`
   border: none;
-  background: var(--ColorDarkLight);
+  background: linear-gradient(
+    to right,
+    var(--ColorDarkLight),
+    var(--ColorDark)
+  );
   padding: 2rem 0;
   text-indent: 2rem;
   font-size: 1.8rem;
   color: #fffcc8;
+
   ::placeholder {
     color: #fffcc8;
+    opacity: 0.3;
   }
 `
 

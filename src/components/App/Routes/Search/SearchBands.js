@@ -1,7 +1,17 @@
 import React from "react"
-
+import { connect } from "react-redux"
 const SearchBands = props => {
-  return <div>SearchBands</div>
+  return (
+    <div>
+      {props.city} {props.searchCrit}
+    </div>
+  )
 }
 
-export default SearchBands
+const mapState = state => {
+  return {
+    city: state.listing.city,
+    searchCrit: state.listing.searchCrit,
+  }
+}
+export default connect(mapState)(SearchBands)

@@ -25,7 +25,7 @@ const Style = createGlobalStyle`
       background: #555;
     }
     :root{
-        --ColorPrimary: #E63B32;
+        --ColorPrimary: #E6326D;
         --ColorPrimaryFaded: #Fd655D;
         --ColorDarkLight: #3d4147;
         --ColorDark: #23262B;

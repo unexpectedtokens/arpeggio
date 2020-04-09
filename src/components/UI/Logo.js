@@ -1,19 +1,20 @@
 import styled from "styled-components"
 import React from "react"
-const Logo = styled.h1`
-  display: flex;
-  font-size: 2rem;
-  margin-top: 2rem;
-  cursor: pointer;
-  span {
-    color: var(--ColorPrimary);
+import Logo from "../../images/logolanding.svg"
+
+const LogoContainer = styled.div`
+  margin-bottom: 5rem;
+  img {
+    width: 15rem;
   }
 `
 
 export default props => {
   return (
-    <Logo onClick={props.clicked}>
-      Arpegg.<span>io</span>
-    </Logo>
+    <LogoContainer onClick={props.clicked}>
+      <figure>
+        <img alt="logo" src={Logo} />
+      </figure>
+    </LogoContainer>
   )
 }

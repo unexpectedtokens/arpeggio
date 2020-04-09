@@ -2,7 +2,11 @@ import React from "react"
 import styled from "styled-components"
 import spinner from "../../../images/spinner.svg"
 const ButtonComp = styled.button`
-  background: var(--ColorPrimaryFaded);
+  background: linear-gradient(
+    to bottom left,
+    var(--ColorPrimary),
+    var(--ColorPrimaryFaded)
+  );
   color: #fff;
   text-decoration: none;
   padding: 1rem 3rem;
@@ -25,7 +29,7 @@ const ButtonComp = styled.button`
 
 const Button = props => {
   return (
-    <ButtonComp to={props.to} onClick={props.clicked}>
+    <ButtonComp onClick={props.clicked}>
       {props.loading ? <img alt="" src={spinner} /> : props.text}
     </ButtonComp>
   )

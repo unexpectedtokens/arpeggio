@@ -17,6 +17,7 @@ import {
 import Button from "../components/UI/Button"
 import Background from "../components/UI/Background"
 import { MdSearch } from "react-icons/md"
+import Logo from "../components/UI/Logo"
 
 const IndexPage = () => {
   // const data = useStaticQuery(query)
@@ -31,9 +32,7 @@ const IndexPage = () => {
           <div></div>
           <div className="content">
             <Fader>
-              <h2 className="logo">
-                Arpegg.<span>io</span>
-              </h2>
+              <Logo />
             </Fader>
             <Fader delay="0.8s">
               <h1>Find people to experience making music with</h1>

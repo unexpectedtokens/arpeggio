@@ -6,7 +6,7 @@ const Messages = props => {
   return (
     <RouteContainer>
       <Stagger delay=".1s" state={props.state}>
-        <Welcome username="Daniel" />
+        <Welcome username={props.user.displayName} />
       </Stagger>
       <Stagger delay=".3s" state={props.state}>
         <CTAs />

@@ -6,17 +6,17 @@ export default props => {
   const [loading, setLoading] = React.useState(false)
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
+  const [firstName, setFirstName] = React.useState("")
+  const [lastName, setLastName] = React.useState("")
   const [password2, setPassword2] = React.useState("")
   const submit = e => {
     e.preventDefault()
-    setLoading(true)
-    setTimeout(() => {
-      if (email && password && password2 && password === password2) {
-        props.authenticate()
-      } else {
-        setLoading(false)
-      }
-    }, 500)
+    if (email && password && password === password2 && firstName && lastName) {
+      setLoading(true)
+      props.register(email, password, `${firstName} ${lastName}`)
+    } else {
+      alert("go away")
+    }
   }
   return (
     <form onSubmit={submit}>
@@ -29,6 +29,31 @@ export default props => {
           placeholder="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          required
+        />
+      </Field>
+      <Field>
+        <label htmlFor="firstname">First name</label>
+        <Input
+          type="text"
+          name="firstname"
+          id="firstname"
+          placeholder="first name"
+          value={firstName}
+          onChange={e => setFirstName(e.target.value)}
+          required
+        />
+      </Field>
+      <Field>
+        <label htmlFor="lastname">Last name</label>
+        <Input
+          type="text"
+          name="lastname"
+          id="lastname"
+          placeholder="last name"
+          value={lastName}
+          onChange={e => setLastName(e.target.value)}
+          required
         />
       </Field>
       <Field>
@@ -40,6 +65,7 @@ export default props => {
           placeholder="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
+          required
         />
       </Field>
       <Field>
@@ -51,6 +77,7 @@ export default props => {
           placeholder="Confirm password"
           value={password2}
           onChange={e => setPassword2(e.target.value)}
+          required
         />
       </Field>
       <ButtonBar>

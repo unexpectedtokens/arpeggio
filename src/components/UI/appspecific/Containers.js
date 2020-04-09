@@ -24,7 +24,9 @@ export const Content = styled.section`
   transition: opacity 0.3s, transform 0.3s;
 
   min-height: 100vh;
-  background: var(--ColorDark);
+  /* background: var(--ColorDark); */
+  background: linear-gradient(rgba(33, 33, 33, 0.9), rgba(33, 33, 33, 0.9)),
+    url("https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
   display: flex;
   box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.4);
   padding: 2rem 2rem 2rem 0;
@@ -70,7 +72,7 @@ to{
   }
 `
 const unMountedCss = css`
-  animation: ${unMountAnimation} 0.2s;
+  animation: ${unMountAnimation} 0.3s;
 `
 
 export const Stagger = styled.div`

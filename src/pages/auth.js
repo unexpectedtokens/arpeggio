@@ -9,7 +9,8 @@ import Background from "../components/UI/Background"
 import { navigate, Link } from "gatsby"
 import { FaHeart, FaGithub } from "react-icons/fa"
 import { Fader, Footer, LogoGrid } from "../components/Landing/index"
-
+import firebase from "../firebase/firebase"
+import CreateProfile from "../utils/createProfile"
 ///STYLING
 const CSS = css`
   transform: none;
@@ -67,17 +68,53 @@ const FormContainer = styled.div`
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSignIn: () => dispatch(authCreator()),
+    onSignIn: user => dispatch(authCreator(user)),
   }
 }
 const mapStateToProps = state => {
   return { auth: state.auth.authenticated }
 }
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(props => {
   const [mode, setMode] = useState("login")
+  const firebaseInstance = firebase()
+  const login = (email, password) => {
+    firebaseInstance
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(user => {
+        props.onSignIn(user.user)
+      })
+      .catch(e => console.log(e))
+  }
+  const register = (email, password, name) => {
+    firebaseInstance
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(user => {
+        user.user.updateProfile({
+          displayName: name,
+        })
+        firebaseInstance
+          .firestore()
+          .collection("profile")
+          .doc(user.user.uid)
+          .set(CreateProfile(user.user.uid, name))
+        props.onSignIn(user.user)
+      })
+      .catch(e => console.log(e))
+  }
+  useEffect(() => {
+    firebaseInstance.auth().onAuthStateChanged(user => {
+      if (user) {
+        props.onSignIn(user)
+      } else {
+      }
+    })
+  }, [props, firebaseInstance])
   useEffect(() => {
     if (props.auth) {
       navigate("/app/")
@@ -96,25 +133,13 @@ export default connect(
         </Fader>
         <Fader delay="0.9s" style={{ paddingBottom: "7rem" }}>
           {mode === "login" ? (
-            <Login
-              setMode={() => setMode("register")}
-              authenticate={props.onSignIn}
-            />
+            <Login setMode={() => setMode("register")} login={login} />
           ) : (
-            <Register
-              authenticate={props.onSignIn}
-              setMode={() => setMode("login")}
-            />
+            <Register setMode={() => setMode("login")} register={register} />
           )}
         </Fader>
         <Fader delay="1.2s">
           <LogoGrid>
-            {/* <a href="/">
-                  <FaTwitter size="3rem" />
-                </a>
-                <a href="/">
-                  <FaFacebookF size="3rem" />
-                </a> */}
             <a href="https://github.com/unexpectedtokens/">
               <FaGithub size="3rem" />
             </a>

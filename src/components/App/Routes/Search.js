@@ -1,6 +1,6 @@
 import React from "react"
-const Messages = props => {
+const Search = props => {
   return <>{props.children}</>
 }
 
-export default Messages
+export default Search

@@ -33,7 +33,7 @@ const WelcomeBanner = styled(BackgroundImage)`
 export default props => {
   const data = useStaticQuery(query)
   const stack = [
-    "linear-gradient(to top left,rgba(255,255,255,0.7),var(--ColorPrimaryFaded))",
+    "linear-gradient(to top left,rgba(255,155,55,0.7),var(--ColorPrimaryFaded))",
     data.file.childImageSharp.fluid,
   ]
   return (

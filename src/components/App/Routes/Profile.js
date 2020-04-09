@@ -1,10 +1,11 @@
 import React from "react"
 import { Stagger, RouteContainer } from "../../UI/appspecific/Containers"
-const Messages = props => {
+import { connect } from "react-redux"
+const Profile = props => {
   return (
     <RouteContainer>
       <Stagger delay=".1s" state={props.state}>
-        Home
+        {JSON.stringify(props.profile)}
       </Stagger>
       <Stagger delay=".3s" state={props.state}>
         Home
@@ -19,4 +20,8 @@ const Messages = props => {
   )
 }
 
-export default Messages
+const mapState = state => {
+  return { profile: state.auth.profile }
+}
+
+export default connect(mapState)(Profile)

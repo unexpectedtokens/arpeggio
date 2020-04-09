@@ -108,7 +108,8 @@ export default () => {
   const items = [
     {
       textTitle: "Find your missing band member(s)",
-      text: "lorem ipsum doler set",
+      text:
+        "And start experiencing music the way it's supposed to be experienced",
       to: "search",
       color: "#fd655de8",
       fluid: band.childImageSharp.fluid,
