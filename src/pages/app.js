@@ -5,13 +5,10 @@ import { TransitionGroup, Transition } from "react-transition-group"
 import firebase from "../firebase/firebase"
 //ROUTE IMPORTS
 import Home from "../components/App/Routes/Home"
-import Search from "../components/App/Routes/Search"
+import Search from "../components/App/Routes/Search.js"
 import Profile from "../components/App/Routes/Profile"
 import Messages from "../components/App/Routes/Messages"
-import SearchIndex from "../components/App/Routes/Search/"
-import SearchIndivs from "../components/App/Routes/Search/SearchIndivs"
-import SearchBand from "../components/App/Routes/Search/SearchBands"
-
+import Spinner from "../components/UI/appspecific/Spinner"
 ///////ICON/asset IMPORTS
 
 import { MdSearch, MdHome, MdMessage, MdPerson } from "react-icons/md"
@@ -34,11 +31,11 @@ import Logo from "../components/UI/appspecific/Logo"
 
 //ACTIONCREATORS
 import * as dispatchCreators from "../store/actions/auth/authActionCreators"
-import { useCallback } from "react"
 
 const MapStateToProps = state => {
   return {
     user: state.auth.user,
+    profile: state.auth.profile,
     auth: state.auth.authenticated,
   }
 }
@@ -48,53 +45,76 @@ const MapDispatchToProps = dispatch => {
     onSignIn: user => dispatch(dispatchCreators.authCreator(user)),
     onSetProfile: profile =>
       dispatch(dispatchCreators.setProfileCreator(profile)),
+    onCleanSweep: () => dispatch({ type: "CLEAN_SWEEP" }),
   }
 }
 export default connect(
   MapStateToProps,
   MapDispatchToProps
 )(props => {
-  const { auth, onSignOut, onSignIn, user, onSetProfile } = props
+  const {
+    auth,
+    onSignOut,
+    onSignIn,
+    user,
+    onSetProfile,
+    onCleanSweep,
+    profile,
+  } = props
   const [path, setPath] = useState("/app/")
   const Routes = [
     { to: "/app/", text: "Home" },
     { to: "/app/search", text: "Search" },
     { to: "/app/messages", text: "Messages" },
-    { to: "/app/profile", text: "Profile" },
+    { to: `/app/profile/${user.uid}`, text: "Profile" },
   ]
   //navigates back to login screen if !auth
 
   const firebaseInstance = firebase()
 
   //get the user profile and store it in redux
-  const getUserProfile = useCallback(
-    userid => {
-      firebaseInstance
+  useEffect(() => {
+    console.log("[1st useeffect] app.ks")
+    if (user && Object.keys(user).length) {
+      return firebaseInstance
         .firestore()
-        .collection("profile")
-        .where("userid", "==", userid)
-        .get()
-        .then(querySnapshot =>
-          querySnapshot.forEach(doc => {
-            onSetProfile(doc.data())
-          })
-        )
-    },
-    [firebaseInstance, onSetProfile]
-  )
+        .collection("profiles")
+        .doc(user.uid)
+        .onSnapshot(doc => {
+          if (doc) onSetProfile(doc.data())
+        })
+    }
+  }, [user, firebaseInstance, onSetProfile])
+
+  // set username in profile if not exist
+  useEffect(() => {
+    console.log("[2st useeffect] app.js")
+    if (user && profile) {
+      if (Object.keys(user).length > 0 && Object.keys(profile).length > 0) {
+        if (!profile.name) {
+          firebaseInstance
+            .firestore()
+            .collection("profiles")
+            .doc(user.uid)
+            .update({ name: user.displayName })
+        }
+      }
+    }
+  }, [user, profile, firebaseInstance])
 
   //update path on navigate
   useEffect(() => {
+    console.log("[3st useeffect] app.js")
     return firebaseInstance.auth().onAuthStateChanged(user => {
       if (user) {
         onSignIn(user)
-        getUserProfile(user.uid)
       } else {
         onSignOut()
+        onCleanSweep()
         navigate("/auth")
       }
     })
-  }, [firebaseInstance, onSignIn, onSignOut, getUserProfile])
+  }, [firebaseInstance, onSignIn, onSignOut, onCleanSweep])
   //set pathname to track which route is active for the navbar
   useEffect(() => {
     setPath(props.location.pathname.split("/")[2])
@@ -166,28 +186,40 @@ export default connect(
           </FooterInfo>
         </SideBar>
         <Main>
-          <Location>
-            {({ location }) => (
-              <TransitionGroup>
-                <Transition key={location} timeout={1000} unmountOnExit={true}>
-                  {state => {
-                    return (
-                      <Router basepath="/app">
-                        <Home path="/" default user={user} state={state} />
-                        <Search path="search">
-                          <SearchBand path="band" state={state} />
-                          <SearchIndex path="/" state={state} />
-                          <SearchIndivs path="indiv" state={state} />
-                        </Search>
-                        <Profile path="/profile" state={state} />
-                        <Messages path="/messages" state={state} />
-                      </Router>
-                    )
-                  }}
-                </Transition>
-              </TransitionGroup>
-            )}
-          </Location>
+          {user &&
+          Object.keys(user).length &&
+          profile &&
+          Object.keys(profile).length > 0 ? (
+            <Location>
+              {({ location }) => (
+                <TransitionGroup>
+                  <Transition
+                    key={location}
+                    timeout={1000}
+                    unmountOnExit={true}
+                  >
+                    {state => {
+                      return (
+                        <Router basepath="/app">
+                          <Home
+                            path="/"
+                            default
+                            profile={profile}
+                            state={state}
+                          />
+                          <Search path="search" state={state} />
+                          <Profile path="/profile/:userid" state={state} />
+                          <Messages path="/messages" state={state} />
+                        </Router>
+                      )
+                    }}
+                  </Transition>
+                </TransitionGroup>
+              )}
+            </Location>
+          ) : (
+            <Spinner />
+          )}
         </Main>
       </Content>
     </Container>

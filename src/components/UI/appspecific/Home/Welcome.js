@@ -16,11 +16,15 @@ const query = graphql`
 `
 
 const WelcomeBanner = styled(BackgroundImage)`
-  background: var(--ColorPrimary);
   padding: 10rem 5rem;
   color: #fff;
   background-position: center;
   background-repeat: no-repeat;
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+`
+const BannerContainer = styled.div`
   h1 {
     font-size: 3.5rem;
     font-weight: 400;
@@ -29,17 +33,25 @@ const WelcomeBanner = styled(BackgroundImage)`
     font-size: 1.8rem;
   }
 `
-//rgba(600,65,10, 0.7)
-export default props => {
+
+export const Banner = ({ children }) => {
   const data = useStaticQuery(query)
+
   const stack = [
-    "linear-gradient(to top left,rgba(255,155,55,0.7),var(--ColorPrimaryFaded))",
+    "linear-gradient(to top right,rgba(255,155,55,0.7),var(--ColorPrimary))",
     data.file.childImageSharp.fluid,
   ]
+  return <WelcomeBanner fluid={stack}>{children}</WelcomeBanner>
+}
+
+//rgba(600,65,10, 0.7)
+export default props => {
   return (
-    <WelcomeBanner fluid={stack}>
-      <h1>Welcome, {props.username}!</h1>
-      <p>Let's find you the people you need.</p>
-    </WelcomeBanner>
+    <Banner>
+      <BannerContainer>
+        <h1>Welcome, {props.username}!</h1>
+        <p>Let's find you the people you need.</p>
+      </BannerContainer>
+    </Banner>
   )
 }

@@ -14,6 +14,8 @@ export default (state = initialState, action) => {
       return { ...state, authenticated: false, user: {} }
     case types.setProfile:
       return { ...state, profile: action.payload }
+    case "CLEAN_SWEEP":
+      return { ...initialState }
     default:
       return state
   }

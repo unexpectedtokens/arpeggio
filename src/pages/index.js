@@ -55,9 +55,9 @@ const IndexPage = () => {
                     active: true,
                   },
                   { text: "Promote gigs (Coming soon)" },
-                  {
-                    text: "Get in touch with performers (Coming soon)",
-                  },
+                  // {
+                  //   text: "Get in touch with performers (Coming soon)",
+                  // },
                 ].map(item => (
                   <Item active={item.active} key={item.text}>
                     <MdSearch />

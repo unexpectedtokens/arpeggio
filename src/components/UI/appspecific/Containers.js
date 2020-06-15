@@ -35,8 +35,9 @@ export const Content = styled.section`
   }
 `
 export const Main = styled.main`
-  background: var(--ColorDarkLight);
-  flex-basis: 82.5%;
+  background: var(--ColorDark);
+  /* flex-basis: 82.5%; */
+  flex-grow: 1;
   padding: 4rem;
   box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.4);
   position: relative;
@@ -58,7 +59,6 @@ to{transform: translateY(0);
 const MountedCss = css`
   animation: ${MountAnimation} 0.6s ease-out;
   animation-delay: ${props => (props.delay ? props.delay : ".3s")};
-  position: relative;
 `
 
 const unMountAnimation = keyframes`
@@ -84,7 +84,6 @@ export const Stagger = styled.div`
     }
   }}
   animation-fill-mode: both;
-  margin-bottom: 6rem;
 `
 export const RouteContainer = styled.div`
   position: absolute;
@@ -92,8 +91,9 @@ export const RouteContainer = styled.div`
   left: 0;
   width: 100%;
   display: flex;
-  padding: 2rem;
+  /* padding: 5rem 2rem 2rem; */
   flex-direction: column;
+  min-height: 100%;
   ::-webkit-scrollbar {
     display: none;
   }

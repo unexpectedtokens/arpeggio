@@ -1,10 +1,23 @@
-// const functions = require('firebase-functions');
+const functions = require("firebase-functions")
+const admin = require("firebase-admin")
+admin.initializeApp()
 
-// // // Create and Deploy Your First Cloud Functions
-// // // https://firebase.google.com/docs/functions/write-firebase-functions
-// //
-// // exports.helloWorld = functions.https.onRequest((request, response) => {
-// //  response.send("Hello from Firebase!");
-// // });
+const createUser = (userID, displayName) => {
+  return {
+    userid: userID,
+    name: displayName,
+    description: "",
+    dateofbirth: new Date(),
+    instruments: [],
+    favouritebands: [],
+    town: "",
+  }
+}
 
-// exports.createProfileOnUserCreate = functions.auth.user().onCreate(user=>)
+exports.createProfileOnUserCreate = functions.auth.user().onCreate(user => {
+  admin
+    .firestore()
+    .collection("profiles")
+    .doc(user.uid)
+    .set(createUser(user.uid, user.displayName))
+})

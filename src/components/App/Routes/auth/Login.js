@@ -3,16 +3,15 @@ import { Input, Field } from "../../../UI/Form/FormField"
 import Button, { ButtonBar } from "../../../UI/appspecific/Button"
 
 export default props => {
-  const [loading, setLoading] = React.useState(false)
+  const { loading, error, setError } = props
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
   const submit = e => {
     e.preventDefault()
-    setLoading(true)
     if (email && password) {
       props.login(email, password)
     } else {
-      setLoading(false)
+      setError("Please fill in your email and password")
     }
   }
   return (
@@ -41,6 +40,7 @@ export default props => {
           required
         />
       </Field>
+      {error && <p style={{ color: "crimson" }}>{error}</p>}
       <ButtonBar>
         <Button type="submit" text="Log in" loading={loading} />
         <button

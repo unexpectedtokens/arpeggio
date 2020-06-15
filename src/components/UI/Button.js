@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
 const ButtonComp = styled(Link)`
+  border-radius: 5rem;
   background: linear-gradient(
     to right,
     var(--ColorPrimary) 0%,

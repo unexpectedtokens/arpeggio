@@ -22,6 +22,7 @@ export default props => {
   const { file } = useStaticQuery(query)
   const stack = [
     // "linear-gradient(rgba(222,145,26,0.5),rgba(222,145,26,0.5))",
+    "linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3))",
     file.childImageSharp.fluid,
   ]
   return <Background fluid={stack}>{props.children}</Background>

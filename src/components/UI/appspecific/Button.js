@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import spinner from "../../../images/spinner.svg"
 const ButtonComp = styled.button`
+  border-radius: 5rem;
   background: linear-gradient(
     to bottom left,
     var(--ColorPrimary),

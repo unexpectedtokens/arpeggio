@@ -1,18 +1,9 @@
 import * as types from "../actions/listings/listingsActions"
 
 const initialState = {
-  listings: [
-    { title: "yes" },
-    { title: "yes" },
-    { title: "yes" },
-    { title: "no" },
-    { title: "no" },
-    { title: "no" },
-    { title: "no" },
-  ],
-  searchCrit: "band",
+  listings: [],
+  searchCrit: { crit: "band", instrument: "guitar" },
   city: "",
-  instrumentSelected: "guitar",
 }
 
 export default (state = initialState, action) => {

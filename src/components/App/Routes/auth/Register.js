@@ -3,7 +3,7 @@ import { Input, Field } from "../../../UI/Form/FormField"
 import Button, { ButtonBar } from "../../../UI/appspecific/Button"
 
 export default props => {
-  const [loading, setLoading] = React.useState(false)
+  const { loading, error, setError } = props
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
   const [firstName, setFirstName] = React.useState("")
@@ -12,10 +12,9 @@ export default props => {
   const submit = e => {
     e.preventDefault()
     if (email && password && password === password2 && firstName && lastName) {
-      setLoading(true)
       props.register(email, password, `${firstName} ${lastName}`)
     } else {
-      alert("go away")
+      setError({ message: "All the fields are required" })
     }
   }
   return (
@@ -80,6 +79,8 @@ export default props => {
           required
         />
       </Field>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
       <ButtonBar>
         <Button type="submit" text="Register" loading={loading} />
         <button

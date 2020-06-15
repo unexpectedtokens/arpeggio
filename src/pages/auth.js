@@ -10,7 +10,6 @@ import { navigate, Link } from "gatsby"
 import { FaHeart, FaGithub } from "react-icons/fa"
 import { Fader, Footer, LogoGrid } from "../components/Landing/index"
 import firebase from "../firebase/firebase"
-import CreateProfile from "../utils/createProfile"
 ///STYLING
 const CSS = css`
   transform: none;
@@ -80,17 +79,32 @@ export default connect(
   mapDispatchToProps
 )(props => {
   const [mode, setMode] = useState("login")
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
   const firebaseInstance = firebase()
+  const { onSignIn } = props
+  const handleError = ({ message }) => {
+    setError(message)
+    setTimeout(setError(""), 5000)
+  }
   const login = (email, password) => {
+    console.log("loggin in")
+    setLoading(true)
     firebaseInstance
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(user => {
+        setLoading(false)
         props.onSignIn(user.user)
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        console.log(e)
+        handleError(e)
+        setLoading(false)
+      })
   }
   const register = (email, password, name) => {
+    setLoading(true)
     firebaseInstance
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -98,23 +112,22 @@ export default connect(
         user.user.updateProfile({
           displayName: name,
         })
-        firebaseInstance
-          .firestore()
-          .collection("profile")
-          .doc(user.user.uid)
-          .set(CreateProfile(user.user.uid, name))
-        props.onSignIn(user.user)
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        console.log(e)
+        handleError(e)
+        setLoading(false)
+      })
   }
-  useEffect(() => {
-    firebaseInstance.auth().onAuthStateChanged(user => {
-      if (user) {
-        props.onSignIn(user)
-      } else {
-      }
-    })
-  }, [props, firebaseInstance])
+  useEffect(
+    () =>
+      firebaseInstance.auth().onAuthStateChanged(user => {
+        if (user) {
+          onSignIn(user)
+        }
+      }),
+    [onSignIn, firebaseInstance]
+  )
   useEffect(() => {
     if (props.auth) {
       navigate("/app/")
@@ -133,12 +146,25 @@ export default connect(
         </Fader>
         <Fader delay="0.9s" style={{ paddingBottom: "7rem" }}>
           {mode === "login" ? (
-            <Login setMode={() => setMode("register")} login={login} />
+            <Login
+              setMode={() => setMode("register")}
+              login={login}
+              error={error}
+              loading={loading}
+              setError={handleError}
+            />
           ) : (
-            <Register setMode={() => setMode("login")} register={register} />
+            <Register
+              setMode={() => setMode("login")}
+              register={register}
+              error={error}
+              loading={loading}
+              setError={handleError}
+            />
           )}
         </Fader>
         <Fader delay="1.2s">
+          <p>{error}</p>
           <LogoGrid>
             <a href="https://github.com/unexpectedtokens/">
               <FaGithub size="3rem" />

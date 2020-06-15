@@ -3,11 +3,11 @@ import styled, { keyframes } from "styled-components"
 import { graphql, useStaticQuery } from "gatsby"
 import { Link } from "@reach/router"
 import Bg from "gatsby-background-image"
-
 const ItemGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
   grid-gap: 3rem;
+  padding: 2rem;
 `
 
 const query = graphql`
@@ -50,7 +50,8 @@ const FadeIn = keyframes`
 const ItemComp = styled.div`
   display: flex;
   flex-direction: column;
-
+  border-radius: 5px;
+  overflow: hidden;
   box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.3);
   transition: transform 0.3s;
   animation: ${FadeIn} 1.5s;
@@ -103,7 +104,7 @@ const Item = props => {
   )
 }
 
-export default () => {
+export default props => {
   const { gig, band, surf } = useStaticQuery(query)
   const items = [
     {
@@ -126,7 +127,7 @@ export default () => {
       textTitle: "Optimize your profile",
       text:
         "A more detailed profile will give you a better chance of finding what you're looking for.",
-      to: "profile",
+      to: `profile/${props.userid}`,
       color: "#5050ffe8",
       fluid: surf.childImageSharp.fluid,
     },
